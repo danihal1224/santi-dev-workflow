@@ -1,0 +1,8 @@
+.*
+!.github/
+!.gitattributes
+!.gitignore
+!.python-version
+
+__pycache__/
+dist/

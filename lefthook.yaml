@@ -1,0 +1,16 @@
+pre-commit:
+  piped: true
+  fail_on_changes: always
+  fail_on_changes_diff: true
+  jobs:
+    - name: install dependencies
+      run: uv sync
+
+    - name: fix lint
+      run: uv run ruff check --fix
+
+    - name: fix python formatting
+      run: uv run ruff format
+
+    - name: fix formatting
+      run: dprint fmt
