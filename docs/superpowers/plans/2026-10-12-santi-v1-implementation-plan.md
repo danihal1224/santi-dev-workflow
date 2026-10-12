@@ -42,10 +42,12 @@
 ### Task 1: Build the provider and integration capability matrix
 
 **Files:**
+
 - Create: `docs/superpowers/plans/santi-capability-matrix.md`
 - Create: `docs/superpowers/decisions/ADR-071-runtime-and-integration-boundary.md`
 
 **Interfaces:**
+
 - Consumes: the approved architecture specification and the approved tool/provider catalog.
 - Produces: a reviewed matrix classifying every critical capability as `confirmed`, `pending`, or `unavailable`; a proposed runtime boundary and a list of blockers.
 
@@ -61,10 +63,12 @@
 ### Task 2: Establish a dedicated application repository and engineering baseline
 
 **Files:**
+
 - Create in the new application repository: `AGENTS.md`, `README.md`, `pyproject.toml`, `uv.lock`, `.python-version`, `.github/workflows/ci.yaml`, PR template, and minimal package/test layout.
 - Keep unchanged: `danihal1224/santi-dev-workflow` sample source, CI and branch protection.
 
 **Interfaces:**
+
 - Consumes: Task 1's verified runtime decision and the existing engineering guardrails.
 - Produces: a dedicated, protected repository with reproducible setup, CI, lint, tests, build, secret scanning where available, and a documented local workflow.
 
@@ -82,12 +86,14 @@
 ### Task 3: Define task, result and authorization contracts
 
 **Files:**
+
 - Create: `src/santi_core/models.py`
 - Create: `src/santi_core/authorization.py`
 - Test: `tests/santi_core/test_models.py`
 - Test: `tests/santi_core/test_authorization.py`
 
 **Interfaces:**
+
 - `AuthorizationRequest`: actor, action, resource, environment, scope, requested limits and context identifier.
 - `AuthorizationDecision`: allow/deny, reason code, authorization identifier and applicable limits; no secret material.
 - `TaskStatus`: `pending`, `running`, `completed`, `partial`, `blocked`, `failed`, `pending_verification`, `cancelled`.
@@ -105,12 +111,14 @@
 ### Task 4: Add the authorization registry and revocation boundary
 
 **Files:**
+
 - Create: `src/santi_core/authorization_store.py`
 - Create: `src/santi_core/revocation.py`
 - Test: `tests/santi_core/test_authorization_store.py`
 - Test: `tests/santi_core/test_revocation.py`
 
 **Interfaces:**
+
 - `get_authorization(authorization_id) -> AuthorizationRecord | None`.
 - `revoke_authorization(authorization_id, reason, actor) -> RevocationResult`.
 - `is_revoked(authorization_id) -> bool`.
@@ -127,12 +135,14 @@
 ### Task 5: Implement task state, checkpoints and safe resumption
 
 **Files:**
+
 - Create: `src/santi_core/task_state.py`
 - Create: `src/santi_core/checkpoints.py`
 - Test: `tests/santi_core/test_task_state.py`
 - Test: `tests/santi_core/test_checkpoints.py`
 
 **Interfaces:**
+
 - `transition_task(task_id, expected_status, new_status, evidence) -> TaskRecord`.
 - `save_checkpoint(task_id, checkpoint) -> CheckpointRecord`.
 - `load_checkpoint(task_id) -> CheckpointRecord | None`.
@@ -150,6 +160,7 @@
 ### Task 6: Create the tool catalog and execution gateway
 
 **Files:**
+
 - Create: `src/santi_core/tool_catalog.py`
 - Create: `src/santi_core/execution_gateway.py`
 - Create: `src/santi_core/tool_protocols.py`
@@ -157,6 +168,7 @@
 - Test: `tests/santi_core/test_execution_gateway.py`
 
 **Interfaces:**
+
 - `ToolCapability`: name, supported actions, scopes, required permissions, cost metadata, verification method and capability status.
 - `execute_tool(tool_name, action, request, authorization_id) -> ToolExecutionResult`.
 - `ToolExecutionResult`: operation identifier, execution status, external reference when safe, verification status and redacted error.
@@ -173,12 +185,14 @@
 ### Task 7: Implement budget and concurrency guards
 
 **Files:**
+
 - Create: `src/santi_core/budgets.py`
 - Create: `src/santi_core/concurrency.py`
 - Test: `tests/santi_core/test_budgets.py`
 - Test: `tests/santi_core/test_concurrency.py`
 
 **Interfaces:**
+
 - `check_budget(project_id, estimated_cost) -> BudgetDecision`.
 - `reserve_budget(project_id, operation_id, estimated_cost) -> ReservationResult`.
 - `release_or_reconcile_budget(operation_id, actual_cost) -> BudgetRecord`.
@@ -195,12 +209,14 @@
 ### Task 8: Add structured audit events and redaction
 
 **Files:**
+
 - Create: `src/santi_core/audit.py`
 - Create: `src/santi_core/redaction.py`
 - Test: `tests/santi_core/test_audit.py`
 - Test: `tests/santi_core/test_redaction.py`
 
 **Interfaces:**
+
 - `AuditEvent`: event ID, task/project IDs, timestamp, action, tool, authorization reference, outcome, verification and redacted metadata.
 - `record_event(event) -> AuditRecordResult`.
 - `redact_sensitive(value) -> RedactedValue`.
@@ -218,12 +234,14 @@
 ### Task 9: Implement the software-development module
 
 **Files:**
+
 - Create: `src/santi_modules/software_development/workflow.py`
 - Create: `src/santi_modules/software_development/acceptance.py`
 - Test: `tests/santi_modules/software_development/test_workflow.py`
 - Test: `tests/santi_modules/software_development/test_acceptance.py`
 
 **Interfaces:**
+
 - `plan_change(request, repository_context) -> WorkPlan`.
 - `validate_change(plan, evidence) -> AcceptanceReport`.
 - `WorkPlan` contains requirements, affected areas, tasks, dependencies, risks and approval gates.
@@ -240,12 +258,14 @@
 ### Task 10: Add GitHub and Notion adapters only where capability checks passed
 
 **Files:**
+
 - Create: `src/santi_adapters/github_adapter.py`
 - Create: `src/santi_adapters/notion_adapter.py`
 - Test: `tests/santi_adapters/test_github_adapter.py`
 - Test: `tests/santi_adapters/test_notion_adapter.py`
 
 **Interfaces:**
+
 - Each adapter implements the protocols from Task 6 and exposes only explicitly allowlisted actions.
 - Adapter responses are normalized into typed results with remote identifiers and verification state.
 
@@ -264,12 +284,14 @@
 ### Task 11: Add alert routing and incident containment
 
 **Files:**
+
 - Create: `src/santi_core/notifications.py`
 - Create: `src/santi_core/incidents.py`
 - Test: `tests/santi_core/test_notifications.py`
 - Test: `tests/santi_core/test_incidents.py`
 
 **Interfaces:**
+
 - `classify_alert(event) -> AlertPriority`.
 - `dispatch_alert(alert, approved_channel) -> DeliveryResult`.
 - `contain_incident(incident) -> ContainmentResult`.
@@ -285,11 +307,13 @@
 ### Task 12: Define and test backup/restore
 
 **Files:**
+
 - Create: `docs/operations/backup-and-restore.md`
 - Create: `src/santi_core/backup.py`
 - Test: `tests/santi_core/test_backup.py`
 
 **Interfaces:**
+
 - `create_backup(backup_scope) -> BackupResult`.
 - `verify_backup(backup_id) -> BackupVerification`.
 - `restore_backup(backup_id, target) -> RestoreResult`.
@@ -307,6 +331,7 @@
 ### Task 13: Add end-to-end and adversarial tests
 
 **Files:**
+
 - Create: `tests/integration/test_authorized_workflow.py`
 - Create: `tests/integration/test_failure_recovery.py`
 - Create: `tests/security/test_prompt_injection.py`
@@ -325,6 +350,7 @@
 ### Task 14: Run the isolated pilot and collect evidence
 
 **Files:**
+
 - Create: `docs/operations/pilot-protocol.md`
 - Create: `docs/operations/pilot-results.md`
 - Create: `docs/operations/residual-risks.md`
@@ -342,6 +368,7 @@
 ### Task 15: Prepare launch evidence, do not auto-launch
 
 **Files:**
+
 - Create: `docs/operations/release-readiness.md`
 
 - [ ] **Step 1: Map every critical spec requirement to an implementation component and test/evidence reference.**
