@@ -4,7 +4,7 @@
 
 ## Cambios realizados
 
-- 
+- [Describe cada cambio]
 
 ## Relación y documentación
 
