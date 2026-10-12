@@ -1,13 +1,20 @@
 name: CI
+
+# Keep the workflow read-only. Add permissions only if a job explicitly needs them.
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
   pull_request:
   push:
     branches: [main]
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v7.0.1
