@@ -78,17 +78,20 @@ Esta especificación **no autoriza por sí misma la implementación, la conexió
 ### 4.1 Componentes
 
 **A. Interfaz conversacional**
+
 - Recibe objetivos, restricciones, aprobaciones y solicitudes.
 - Comunica progreso, decisiones, bloqueos, resultados y riesgos.
 - No constituye por sí sola un control de seguridad ni un mecanismo de parada garantizado.
 
 **B. Coordinador**
+
 - Descompone objetivos en tareas y dependencias.
 - Asigna tareas a módulos especializados.
 - Gestiona prioridad, concurrencia, estado y escalado.
 - No puede ampliar sus propios permisos ni cambiar objetivos o presupuestos aprobados.
 
 **C. Núcleo común**
+
 - Planificación por objetivos.
 - Memoria curada.
 - Resolución de conflictos y jerarquía de instrucciones.
@@ -98,24 +101,28 @@ Esta especificación **no autoriza por sí misma la implementación, la conexió
 - Observabilidad y métricas.
 
 **D. Módulos de especialidad**
+
 - El módulo inicial será desarrollo de software.
 - Cada módulo tendrá procedimientos, fuentes, herramientas, criterios de calidad, límites y contexto propios.
 - Los módulos compartirán únicamente los servicios comunes necesarios.
 - La incorporación de un módulo nuevo requiere revisión de alcance, datos, riesgos y permisos.
 
 **E. Capa de políticas y autorizaciones**
+
 - Verifica actor, acción, recurso, alcance, condiciones y vigencia del permiso.
 - Deniega acciones cuando la autorización no pueda comprobarse.
 - Comprueba límites de presupuesto, herramienta, entorno y tipo de operación.
 - Es independiente del modelo y debe aplicarse en la ruta de ejecución de las herramientas.
 
 **F. Adaptadores de herramientas**
+
 - Conectan únicamente con proveedores del catálogo aprobado.
 - Declaran capacidades, permisos requeridos, límites, costes conocidos, comportamiento ante errores y métodos de verificación.
 - No deben convertir una respuesta textual del modelo en autorización.
 - Cada acción externa relevante debe tener un resultado comprobable o quedar como pendiente de verificación.
 
 **G. Almacenes y fuentes de verdad**
+
 - GitHub: código, pruebas, historial de cambios y controles de CI.
 - Notion: conocimiento general, procedimientos, decisiones y vista general del proyecto.
 - Sistema de ejecución: estado real de operaciones y tareas en curso.
@@ -123,6 +130,7 @@ Esta especificación **no autoriza por sí misma la implementación, la conexió
 - Memoria de ChatGPT: solo contexto personal útil y curado, no almacén operativo canónico.
 
 **H. Observabilidad**
+
 - Registros estructurados, métricas, eventos de seguridad, alertas y evidencias de verificación.
 - No debe registrar credenciales, secretos ni datos privados innecesarios.
 
@@ -140,12 +148,14 @@ Esta especificación **no autoriza por sí misma la implementación, la conexió
 ## 5. Planificación y autonomía
 
 ### 5.1 Planificación por objetivos
+
 - El usuario establece objetivo, restricciones y criterios relevantes.
 - Santi descompone el trabajo, identifica dependencias y propone prioridades.
 - Puede reorganizar tareas rutinarias dentro del alcance aprobado.
 - Cambios de objetivos, compromisos, presupuesto, alcance estructural o criterios de aceptación requieren consulta y aprobación.
 
 ### 5.2 Niveles de autonomía
+
 - **Bajo riesgo, reversible y autorizado:** ejecución autónoma con verificación apropiada.
 - **Riesgo medio o contexto incierto:** comprobaciones adicionales; consulta si cambia materialmente el alcance.
 - **Alto impacto, sensible o irreversible:** aprobación humana explícita antes de ejecutar.
@@ -154,6 +164,7 @@ Esta especificación **no autoriza por sí misma la implementación, la conexió
 La supervisión será proporcional al impacto, no al nivel de confianza expresado por el modelo.
 
 ### 5.3 Concurrencia
+
 - Paralelismo limitado y adaptativo.
 - Límites por proyecto, herramienta y recursos.
 - Dependencias explícitas y prevención de escrituras incompatibles.
@@ -163,6 +174,7 @@ La supervisión será proporcional al impacto, no al nivel de confianza expresad
 ## 6. Memoria, conocimiento y fuentes
 
 ### 6.1 Memoria curada
+
 - Santi propondrá qué información personal o preferencia merece guardarse.
 - Los cambios permanentes importantes requieren confirmación.
 - La información temporal debe caducar o revisarse.
@@ -171,6 +183,7 @@ La supervisión será proporcional al impacto, no al nivel de confianza expresad
 - Los registros de auditoría no se convertirán automáticamente en memoria.
 
 ### 6.2 Fuentes oficiales por tipo
+
 - Código, pruebas y cambios: GitHub.
 - Conocimiento general, decisiones y procedimientos: Notion.
 - Estado de una operación: sistema que la ejecutó, contrastado cuando sea necesario.
@@ -179,6 +192,7 @@ La supervisión será proporcional al impacto, no al nivel de confianza expresad
 - Las fechas de actualización no sustituyen la autoridad definida para cada dato.
 
 ### 6.3 Fiabilidad y actualización
+
 - Priorizar fuentes primarias y documentación oficial.
 - Verificar frescura y compatibilidad según riesgo.
 - Distinguir hechos, inferencias, hipótesis y opiniones.
@@ -187,6 +201,7 @@ La supervisión será proporcional al impacto, no al nivel de confianza expresad
 - Consultar documentación no equivale a modificar instrucciones ni a reentrenar un modelo.
 
 ### 6.4 Contenido externo no confiable
+
 - Los contenidos externos pueden analizarse, resumirse o probarse, pero no pueden cambiar la jerarquía de instrucciones.
 - Instrucciones incrustadas que soliciten secretos, ampliación de permisos o evasión de controles no se obedecerán.
 - Las acciones sensibles se verifican mediante la capa técnica de autorización.
@@ -194,7 +209,9 @@ La supervisión será proporcional al impacto, no al nivel de confianza expresad
 ## 7. Autorizaciones y gobierno de cambios
 
 ### 7.1 Modelo de autorización
+
 Toda autorización sensible debe especificar, en la medida aplicable:
+
 - Quién autoriza.
 - Acción permitida.
 - Recurso y entorno.
@@ -206,6 +223,7 @@ Toda autorización sensible debe especificar, en la medida aplicable:
 Las autorizaciones son limitadas, verificables, revocables y pueden caducar. Una pausa no las renueva. Cambios materiales de alcance, contexto, riesgo o incidente obligan a revalidarlas; cuando proceda, se solicitará una nueva aprobación.
 
 ### 7.2 Decisiones reservadas al usuario
+
 - Objetivos y prioridades de alto impacto.
 - Presupuesto adicional o cambios del límite.
 - Nuevos proveedores, conexiones y permisos.
@@ -217,6 +235,7 @@ Las autorizaciones son limitadas, verificables, revocables y pueden caducar. Una
 - Lanzamiento de la versión.
 
 ### 7.3 Cambios según impacto
+
 - Cambios rutinarios dentro del alcance: proceso aprobado, pruebas y trazabilidad.
 - Cambios que afecten a calidad, compatibilidad o datos: revisión reforzada.
 - Cambios de arquitectura, permisos, seguridad, presupuesto o compromisos: aprobación explícita.
@@ -224,6 +243,7 @@ Las autorizaciones son limitadas, verificables, revocables y pueden caducar. Una
 - Versionado y reversión cuando sea viable.
 
 ### 7.4 Jerarquía de instrucciones
+
 1. Instrucciones superiores de seguridad y políticas aplicables.
 2. Autorizaciones válidas del usuario y reglas de proyecto aprobadas, dentro de su alcance.
 3. Procedimientos técnicos y decisiones versionadas compatibles con los niveles superiores.
@@ -233,6 +253,7 @@ Las autorizaciones son limitadas, verificables, revocables y pueden caducar. Una
 ## 8. Seguridad y privacidad
 
 ### 8.1 Controles obligatorios
+
 - Mínimo privilegio.
 - Separación entre desarrollo, pruebas y producción.
 - Credenciales separadas por entorno y herramienta, almacenadas fuera del código y de los registros.
@@ -246,6 +267,7 @@ Las autorizaciones son limitadas, verificables, revocables y pueden caducar. Una
 - Pruebas de seguridad y permisos antes del piloto.
 
 ### 8.2 Datos
+
 - Clasificar por sensibilidad y finalidad.
 - Compartir datos entre proyectos solo cuando exista una finalidad concreta y autorización aplicable.
 - Usar datos sintéticos o anonimizados cuando sean suficientes.
@@ -255,6 +277,7 @@ Las autorizaciones son limitadas, verificables, revocables y pueden caducar. Una
 - No incluir credenciales, tokens o secretos en documentación, memoria ni logs ordinarios.
 
 ### 8.3 Vulnerabilidades
+
 - Detectar y clasificar por severidad, exposición e impacto.
 - Preparar correcciones y probarlas en entorno aislado.
 - Validar compatibilidad y regresiones.
@@ -263,6 +286,7 @@ Las autorizaciones son limitadas, verificables, revocables y pueden caducar. Una
 - Si una vulnerabilidad crítica no tiene corrección segura, aislar o pausar la función afectada y escalar.
 
 ### 8.4 Licencias y propiedad intelectual
+
 - Revisar licencias directas y transitivas y la procedencia de las dependencias.
 - Bloquear incompatibilidades conocidas.
 - Escalar ambigüedades relevantes.
@@ -272,7 +296,9 @@ Las autorizaciones son limitadas, verificables, revocables y pueden caducar. Una
 ## 9. Modelos y proveedores
 
 ### 9.1 Selección de modelos
+
 Seleccionar entre modelos previamente autorizados según:
+
 - Complejidad y tipo de tarea.
 - Calidad y capacidad requeridas.
 - Riesgo y sensibilidad de los datos.
@@ -281,6 +307,7 @@ Seleccionar entre modelos previamente autorizados según:
 - Coste y presupuesto restante.
 
 ### 9.2 Sustitución ante fallos
+
 - Solo alternativas aprobadas previamente para el tipo de tarea.
 - Comprobar capacidades, privacidad, coste y requisitos antes de cambiar.
 - Verificar el resultado con criterios equivalentes.
@@ -288,7 +315,9 @@ Seleccionar entre modelos previamente autorizados según:
 - Si no hay alternativa adecuada, pausar la tarea y conservar el progreso verificable.
 
 ### 9.3 Verificación de capacidades
+
 Cada capacidad crítica se clasifica como:
+
 - **Confirmada:** comprobada con documentación y, cuando sea necesario, prueba real.
 - **Pendiente:** aún no validada en el plan, cuenta o entorno objetivo.
 - **No disponible:** no cumple el requisito.
@@ -298,6 +327,7 @@ No se debe depender de capacidades pendientes para un requisito crítico. Si una
 ## 10. Desarrollo de software y entrega
 
 ### 10.1 Flujo de trabajo
+
 1. Entender requisitos y criterios de aceptación.
 2. Diseñar y obtener aprobación antes de implementar cambios arquitectónicos.
 3. Crear rama de trabajo.
@@ -310,6 +340,7 @@ No se debe depender de capacidades pendientes para un requisito crítico. Si una
 10. Verificar el estado final y documentar el resultado.
 
 ### 10.2 Calidad
+
 - Pruebas unitarias e integración según la tarea.
 - Análisis estático, formato y seguridad según herramientas disponibles.
 - Cobertura relevante sin usarla como único indicador de calidad.
@@ -318,12 +349,14 @@ No se debe depender de capacidades pendientes para un requisito crítico. Si una
 - Si una comprobación no puede ejecutarse, debe declararse como pendiente; nunca afirmarse que pasó.
 
 ### 10.3 Producción
+
 - No hay despliegues autónomos en producción en la versión inicial.
 - Publicación, despliegue o compromisos externos requieren autorización específica.
 - Una PR o una CI correcta no constituye permiso para desplegar.
 - Las protecciones de rama y los permisos de GitHub se mantienen; no se alteran sin aprobación explícita.
 
 ### 10.4 APIs y dependencias externas
+
 - Detectar cambios y evaluar impacto.
 - Probar compatibilidad en entorno aislado.
 - Solo ajustes menores previamente autorizados y comprobados pueden aplicarse automáticamente.
@@ -333,6 +366,7 @@ No se debe depender de capacidades pendientes para un requisito crítico. Si una
 ## 11. Calidad de resultados y definición de terminado
 
 Cada tarea tendrá criterios de aceptación explícitos cuando sea posible. La verificación será proporcional al riesgo:
+
 - Código: pruebas, análisis y revisión del diff.
 - Operaciones externas: consulta del estado real del recurso o transacción.
 - Documentos: revisión de contenido, integridad y ubicación.
@@ -340,6 +374,7 @@ Cada tarea tendrá criterios de aceptación explícitos cuando sea posible. La v
 - Tareas de investigación: fuentes, vigencia y distinción entre hechos e inferencias.
 
 Estados de tarea:
+
 - **Completada:** criterios verificados y evidencia suficiente.
 - **Parcial:** una parte se completó; se enumeran las partes pendientes.
 - **Bloqueada:** requiere decisión, permiso, capacidad o condición externa.
@@ -351,6 +386,7 @@ Nunca se afirmará que algo está completado solo porque una herramienta devolvi
 ## 12. Recuperación, errores e incidentes
 
 ### 12.1 Recuperación limitada
+
 - Reintentos acotados para errores transitorios seguros.
 - Antes de repetir una operación, comprobar si ya se realizó.
 - Aplicar correcciones solo dentro de permisos vigentes.
@@ -358,6 +394,7 @@ Nunca se afirmará que algo está completado solo porque una herramienta devolvi
 - No declarar éxito parcial como éxito completo.
 
 ### 12.2 Reanudación
+
 - Leer el último checkpoint del proyecto.
 - Verificar contra GitHub, Notion y el sistema de ejecución.
 - Comprobar que permisos y autorizaciones siguen vigentes.
@@ -365,6 +402,7 @@ Nunca se afirmará que algo está completado solo porque una herramienta devolvi
 - Si el estado es incierto, bloquear la parte afectada y solicitar intervención.
 
 ### 12.3 Incidentes
+
 - Contener: detener tareas afectadas, aislar herramientas o aplicar revocaciones previstas en los controles autorizados.
 - Preservar evidencia segura y necesaria.
 - Continuar tareas independientes solo si se confirma que no están afectadas.
@@ -373,6 +411,7 @@ Nunca se afirmará que algo está completado solo porque una herramienta devolvi
 - Reanudar operaciones afectadas solo tras verificar integridad, permisos y autorización requerida.
 
 ### 12.4 Parada y revocación
+
 La parada no dependerá únicamente de una instrucción conversacional. Se requieren controles independientes del modelo que bloqueen nuevas acciones y permitan revocar permisos en los sistemas correspondientes. Las operaciones en curso deben detenerse o completarse de forma segura según sus capacidades reales. Los mecanismos se probarán antes del piloto y periódicamente.
 
 ## 13. Costes y límites operativos
@@ -389,7 +428,9 @@ La parada no dependerá únicamente de una instrucción conversacional. Se requi
 ## 14. Observabilidad, auditoría y comunicación
 
 ### 14.1 Registro de eventos
+
 Registrar, según riesgo y finalidad:
+
 - Identificador de tarea y proyecto.
 - Objetivo y alcance.
 - Herramientas utilizadas.
@@ -400,6 +441,7 @@ Registrar, según riesgo y finalidad:
 - Decisiones, bloqueos y escalados.
 
 ### 14.2 Privacidad y retención
+
 - No registrar credenciales, tokens o datos privados innecesarios.
 - Restringir acceso a registros.
 - Definir plazos por tipo de registro, finalidad y obligación aplicable.
@@ -407,6 +449,7 @@ Registrar, según riesgo y finalidad:
 - Los registros no se convierten en memoria personal automáticamente.
 
 ### 14.3 Comunicación
+
 - Resúmenes breves para trabajo rutinario.
 - Explicaciones detalladas para decisiones importantes.
 - Avisos oportunos de riesgos, bloqueos y fallos que requieran intervención.
@@ -419,6 +462,7 @@ Registrar, según riesgo y finalidad:
 ## 15. Métricas y mejora continua
 
 El cuadro de mando equilibrará:
+
 - Calidad de resultados.
 - Fiabilidad y tasa de recuperación segura.
 - Eficiencia y duración.
@@ -430,6 +474,7 @@ El cuadro de mando equilibrará:
 No se optimizará una métrica de forma aislada ni se compensará una regresión de seguridad con productividad. Los umbrales numéricos se fijarán tras obtener una línea base en el piloto.
 
 La mejora continua seguirá este ciclo:
+
 1. Detectar patrón o problema con evidencias.
 2. Proponer cambio.
 3. Evaluar impacto, riesgos y costes.
@@ -444,6 +489,7 @@ No se afirmará que el modelo se reentrena automáticamente. Las mejoras pueden 
 ## 16. Continuidad y copias de seguridad
 
 ### 16.1 Elementos prioritarios
+
 - Código y pruebas.
 - Documentación oficial y decisiones aprobadas.
 - Configuración recuperable.
@@ -451,6 +497,7 @@ No se afirmará que el modelo se reentrena automáticamente. Las mejoras pueden 
 - Registros críticos durante el periodo justificado.
 
 ### 16.2 Controles
+
 - Combinar versionado nativo con copias adicionales de datos esenciales.
 - Proteger copias frente a acceso y eliminación accidental.
 - Excluir secretos y credenciales de copias ordinarias.
@@ -484,6 +531,7 @@ No se fijan cifras de RPO/RTO sin evidencia operativa. Las copias que no se han 
 ## 19. Dependencias críticas y verificación previa
 
 Antes de implementar, crear una matriz de capacidades por proveedor e integración con:
+
 - Capacidad requerida.
 - Evidencia documental.
 - Prueba en el entorno objetivo.
@@ -496,6 +544,7 @@ Antes de implementar, crear una matriz de capacidades por proveedor e integraci�
 - Estado: confirmada, pendiente o no disponible.
 
 Debe verificarse especialmente:
+
 1. Límites de gasto duros frente a simples alertas.
 2. Revocación y alcance real de permisos.
 3. Identificación fiable del estado de operaciones externas.
@@ -512,6 +561,7 @@ Las capacidades pendientes no pueden sustentar requisitos críticos del lanzamie
 ## 20. Validación, piloto y lanzamiento
 
 ### 20.1 Fases
+
 1. Revisión de requisitos y matriz de capacidades.
 2. Pruebas automatizadas.
 3. Pruebas de autorización, permisos y límites.
@@ -522,6 +572,7 @@ Las capacidades pendientes no pueden sustentar requisitos críticos del lanzamie
 8. Aprobación explícita del lanzamiento para una versión y alcance concretos.
 
 ### 20.2 Bloqueadores de lanzamiento
+
 - Cualquier acción no autorizada o bypass de permisos.
 - Fallo crítico de seguridad no resuelto.
 - Declaraciones falsas de finalización.
@@ -534,7 +585,9 @@ Las capacidades pendientes no pueden sustentar requisitos críticos del lanzamie
 - Falta de aprobación explícita del lanzamiento.
 
 ### 20.3 Criterios de aceptación de la arquitectura
+
 La arquitectura podrá pasar a planificación de implementación cuando:
+
 - Cada componente y fuente oficial tenga responsabilidad definida.
 - Los permisos y decisiones reservadas estén documentados.
 - Los requisitos críticos tengan pruebas observables.
@@ -548,6 +601,7 @@ La arquitectura no se considera lista para lanzamiento hasta superar las fases y
 ## 21. Valores que deliberadamente quedan pendientes
 
 No se inventan números para los siguientes parámetros; deben definirse con herramientas y datos reales:
+
 - Presupuesto mensual y por proyecto.
 - Umbrales de alerta y margen preventivo.
 - Máximo de tareas simultáneas por herramienta.
@@ -564,78 +618,78 @@ Cada parámetro deberá incluir valor, unidad, propietario, justificación, fuen
 
 ## 22. Registro de decisiones arquitectónicas aprobadas
 
-| ID | Decisión |
-|---|---|
-| ADR-001 | Arquitectura híbrida; ChatGPT como interfaz principal. |
-| ADR-002 | Memoria curada; los cambios permanentes importantes requieren confirmación. |
-| ADR-003 | Autonomía con límites estrictos; Santi no se concede permisos a sí mismo. |
-| ADR-004 | Catálogo de herramientas y modelos autorizado; no se crean conexiones automáticamente. |
-| ADR-005 | Calidad por capas y proporcional al riesgo; no se debilitan controles críticos. |
-| ADR-006 | Recuperación limitada; comprobar el estado antes de repetir operaciones. |
-| ADR-007 | Seguridad por capas, mínimo privilegio, separación de credenciales y revocación. |
-| ADR-008 | Comunicación adaptativa y alertas por prioridad. |
-| ADR-009 | Núcleo común y módulos independientes por especialidad. |
-| ADR-010 | Planificación por objetivos con cambios de alcance sujetos a aprobación. |
+| ID      | Decisión                                                                                            |
+| ------- | --------------------------------------------------------------------------------------------------- |
+| ADR-001 | Arquitectura híbrida; ChatGPT como interfaz principal.                                              |
+| ADR-002 | Memoria curada; los cambios permanentes importantes requieren confirmación.                         |
+| ADR-003 | Autonomía con límites estrictos; Santi no se concede permisos a sí mismo.                           |
+| ADR-004 | Catálogo de herramientas y modelos autorizado; no se crean conexiones automáticamente.              |
+| ADR-005 | Calidad por capas y proporcional al riesgo; no se debilitan controles críticos.                     |
+| ADR-006 | Recuperación limitada; comprobar el estado antes de repetir operaciones.                            |
+| ADR-007 | Seguridad por capas, mínimo privilegio, separación de credenciales y revocación.                    |
+| ADR-008 | Comunicación adaptativa y alertas por prioridad.                                                    |
+| ADR-009 | Núcleo común y módulos independientes por especialidad.                                             |
+| ADR-010 | Planificación por objetivos con cambios de alcance sujetos a aprobación.                            |
 | ADR-011 | Entregas mediante ramas, pruebas, PR y protecciones; sin despliegues autónomos en producción en v1. |
-| ADR-012 | Métricas equilibradas; seguridad no compensable por productividad. |
-| ADR-013 | Registros estructurados proporcionales al riesgo; no son memoria por defecto. |
-| ADR-014 | Continuidad segura, preservación de progreso y verificación antes de reanudar. |
-| ADR-015 | V1 funcional controlada, centrada en desarrollo de software. |
-| ADR-016 | Validación por etapas y lanzamiento con aprobación explícita. |
-| ADR-017 | Control de cambios por impacto, versionado y reversión cuando sea posible. |
-| ADR-018 | Documentación distribuida por función y una fuente oficial por tipo de dato. |
-| ADR-019 | Presupuesto por proyecto, límites estrictos y pausa al alcanzar el límite. |
-| ADR-020 | Portabilidad selectiva, solo donde aporte valor demostrado. |
-| ADR-021 | Verificación de fuentes proporcional al riesgo. |
-| ADR-022 | Separación de datos por proyecto y especialidad. |
-| ADR-023 | Checkpoints estructurados y estado canónico en Notion/GitHub, validado frente al sistema real. |
-| ADR-024 | Control de cambios de alcance según impacto. |
-| ADR-025 | Coordinador central con especialistas independientes. |
-| ADR-026 | Selección de modelos según tarea, riesgo, privacidad y coste; alternativas preaprobadas. |
-| ADR-027 | Gestión de incertidumbre proporcional al riesgo. |
-| ADR-028 | Paralelismo limitado y coordinado. |
-| ADR-029 | Sin panel personalizado en v1; ChatGPT y vistas nativas. |
-| ADR-030 | Alertas por prioridad, canal autorizado y capacidad de entrega verificada. |
-| ADR-031 | Contención selectiva ante emergencias sin ampliar permisos. |
-| ADR-032 | Copias por criticidad y restauración probada. |
-| ADR-033 | RPO/RTO diferenciados y fijados con evidencia. |
-| ADR-034 | Definición de terminado basada en criterios y evidencia. |
-| ADR-035 | Mejora basada en evidencia, pruebas, aprobación y versionado. |
-| ADR-036 | Pruebas de regresión y bloqueo ante fallos críticos. |
+| ADR-012 | Métricas equilibradas; seguridad no compensable por productividad.                                  |
+| ADR-013 | Registros estructurados proporcionales al riesgo; no son memoria por defecto.                       |
+| ADR-014 | Continuidad segura, preservación de progreso y verificación antes de reanudar.                      |
+| ADR-015 | V1 funcional controlada, centrada en desarrollo de software.                                        |
+| ADR-016 | Validación por etapas y lanzamiento con aprobación explícita.                                       |
+| ADR-017 | Control de cambios por impacto, versionado y reversión cuando sea posible.                          |
+| ADR-018 | Documentación distribuida por función y una fuente oficial por tipo de dato.                        |
+| ADR-019 | Presupuesto por proyecto, límites estrictos y pausa al alcanzar el límite.                          |
+| ADR-020 | Portabilidad selectiva, solo donde aporte valor demostrado.                                         |
+| ADR-021 | Verificación de fuentes proporcional al riesgo.                                                     |
+| ADR-022 | Separación de datos por proyecto y especialidad.                                                    |
+| ADR-023 | Checkpoints estructurados y estado canónico en Notion/GitHub, validado frente al sistema real.      |
+| ADR-024 | Control de cambios de alcance según impacto.                                                        |
+| ADR-025 | Coordinador central con especialistas independientes.                                               |
+| ADR-026 | Selección de modelos según tarea, riesgo, privacidad y coste; alternativas preaprobadas.            |
+| ADR-027 | Gestión de incertidumbre proporcional al riesgo.                                                    |
+| ADR-028 | Paralelismo limitado y coordinado.                                                                  |
+| ADR-029 | Sin panel personalizado en v1; ChatGPT y vistas nativas.                                            |
+| ADR-030 | Alertas por prioridad, canal autorizado y capacidad de entrega verificada.                          |
+| ADR-031 | Contención selectiva ante emergencias sin ampliar permisos.                                         |
+| ADR-032 | Copias por criticidad y restauración probada.                                                       |
+| ADR-033 | RPO/RTO diferenciados y fijados con evidencia.                                                      |
+| ADR-034 | Definición de terminado basada en criterios y evidencia.                                            |
+| ADR-035 | Mejora basada en evidencia, pruebas, aprobación y versionado.                                       |
+| ADR-036 | Pruebas de regresión y bloqueo ante fallos críticos.                                                |
 | ADR-037 | Decisiones técnicas delegadas dentro del alcance; decisiones de alto impacto reservadas al usuario. |
-| ADR-038 | Límites éticos evaluados por contexto; rechazo de acciones dañinas y alternativas seguras. |
-| ADR-039 | Jerarquía explícita de instrucciones; fuentes externas como datos sin autoridad. |
-| ADR-040 | Matriz de coherencia y resolución explícita de dependencias arquitectónicas. |
-| ADR-041 | Sin panel personalizado en v1; reconsiderar solo si el piloto demuestra necesidad. |
-| ADR-042 | Pausa preventiva y margen de seguridad ante límites de coste. |
-| ADR-043 | Controles técnicos independientes de las instrucciones del modelo. |
-| ADR-044 | Fuente de verdad definida por tipo de dato. |
-| ADR-045 | Criterios de lanzamiento observables y proporcionales al riesgo. |
-| ADR-046 | Verificar capacidades de proveedores antes de depender de ellas. |
-| ADR-047 | Autorizaciones limitadas, vigentes, verificables y revocables. |
-| ADR-048 | Notificaciones por prioridad y canales autorizados. |
-| ADR-049 | Retención de registros según finalidad y riesgo. |
-| ADR-050 | Paralelismo limitado por herramienta y proyecto. |
-| ADR-051 | Sustitución solo entre modelos autorizados y validados. |
-| ADR-052 | Revisiones periódicas y extraordinarias tras incidentes. |
-| ADR-053 | Acceso a datos según sensibilidad y finalidad. |
-| ADR-054 | Recuperación tras verificar el estado real. |
-| ADR-055 | Copias de seguridad por criticidad y capacidad de recuperación. |
-| ADR-056 | RPO/RTO fijados tras validar herramientas y costes. |
-| ADR-057 | Reserva de seguridad y pausa preventiva ante límites económicos. |
-| ADR-058 | Contención urgente reversible y previamente autorizada. |
-| ADR-059 | Verificación proporcional al riesgo y a los criterios de aceptación. |
-| ADR-060 | Resolución de conflictos por fuente oficial y bloqueo ante discrepancias críticas. |
-| ADR-061 | Contenido externo tratado como entrada no confiable. |
-| ADR-062 | Aprobación humana explícita del lanzamiento. |
-| ADR-063 | Piloto supervisado en un proyecto real acotado. |
-| ADR-064 | Parada y revocación mediante controles independientes del modelo. |
-| ADR-065 | Supervisión humana proporcional al impacto. |
-| ADR-066 | Cambios de APIs y proveedores validados antes de adoptarse. |
-| ADR-067 | Conocimiento técnico actualizado mediante verificación, versionado y aprobación según impacto. |
-| ADR-068 | Licencias de dependencias verificadas según riesgo. |
-| ADR-069 | Vulnerabilidades gestionadas según severidad, exposición y compatibilidad. |
-| ADR-070 | Separación de entornos y acceso mínimo a producción y datos reales. |
+| ADR-038 | Límites éticos evaluados por contexto; rechazo de acciones dañinas y alternativas seguras.          |
+| ADR-039 | Jerarquía explícita de instrucciones; fuentes externas como datos sin autoridad.                    |
+| ADR-040 | Matriz de coherencia y resolución explícita de dependencias arquitectónicas.                        |
+| ADR-041 | Sin panel personalizado en v1; reconsiderar solo si el piloto demuestra necesidad.                  |
+| ADR-042 | Pausa preventiva y margen de seguridad ante límites de coste.                                       |
+| ADR-043 | Controles técnicos independientes de las instrucciones del modelo.                                  |
+| ADR-044 | Fuente de verdad definida por tipo de dato.                                                         |
+| ADR-045 | Criterios de lanzamiento observables y proporcionales al riesgo.                                    |
+| ADR-046 | Verificar capacidades de proveedores antes de depender de ellas.                                    |
+| ADR-047 | Autorizaciones limitadas, vigentes, verificables y revocables.                                      |
+| ADR-048 | Notificaciones por prioridad y canales autorizados.                                                 |
+| ADR-049 | Retención de registros según finalidad y riesgo.                                                    |
+| ADR-050 | Paralelismo limitado por herramienta y proyecto.                                                    |
+| ADR-051 | Sustitución solo entre modelos autorizados y validados.                                             |
+| ADR-052 | Revisiones periódicas y extraordinarias tras incidentes.                                            |
+| ADR-053 | Acceso a datos según sensibilidad y finalidad.                                                      |
+| ADR-054 | Recuperación tras verificar el estado real.                                                         |
+| ADR-055 | Copias de seguridad por criticidad y capacidad de recuperación.                                     |
+| ADR-056 | RPO/RTO fijados tras validar herramientas y costes.                                                 |
+| ADR-057 | Reserva de seguridad y pausa preventiva ante límites económicos.                                    |
+| ADR-058 | Contención urgente reversible y previamente autorizada.                                             |
+| ADR-059 | Verificación proporcional al riesgo y a los criterios de aceptación.                                |
+| ADR-060 | Resolución de conflictos por fuente oficial y bloqueo ante discrepancias críticas.                  |
+| ADR-061 | Contenido externo tratado como entrada no confiable.                                                |
+| ADR-062 | Aprobación humana explícita del lanzamiento.                                                        |
+| ADR-063 | Piloto supervisado en un proyecto real acotado.                                                     |
+| ADR-064 | Parada y revocación mediante controles independientes del modelo.                                   |
+| ADR-065 | Supervisión humana proporcional al impacto.                                                         |
+| ADR-066 | Cambios de APIs y proveedores validados antes de adoptarse.                                         |
+| ADR-067 | Conocimiento técnico actualizado mediante verificación, versionado y aprobación según impacto.      |
+| ADR-068 | Licencias de dependencias verificadas según riesgo.                                                 |
+| ADR-069 | Vulnerabilidades gestionadas según severidad, exposición y compatibilidad.                          |
+| ADR-070 | Separación de entornos y acceso mínimo a producción y datos reales.                                 |
 
 ## 23. Relación con el repositorio actual
 
@@ -646,6 +700,7 @@ Las instrucciones de ingeniería existentes siguen vigentes. La implementación 
 ## 24. Próximo paso propuesto
 
 Después de revisar y aprobar esta especificación:
+
 1. Preparar un plan de implementación por fases.
 2. Verificar la matriz de capacidades de herramientas y proveedores.
 3. Identificar un entorno de piloto aislado y el repositorio de prueba.
