@@ -25,7 +25,7 @@ jobs:
           echo "$HOME/.dprint/bin" >> $GITHUB_PATH
 
       - name: Setup Lefthook
-        uses: threeal/setup-lefthook-action@v1.0.0
+        uses: threeal/setup-lefthook-action@v1.1.0
 
       - name: Setup uv
         uses: astral-sh/setup-uv@v10.2.0
